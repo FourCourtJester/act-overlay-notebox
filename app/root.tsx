@@ -4,9 +4,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from '@remix-run/react'
 
-import "./tailwind.css";
+import './tailwind.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,19 +17,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-transparent font-oxygen antialiased text-white text-shadow-body text-opacity-80 h-full w-full overflow-hidden p-2">
+      <body className="bg-gray-500 font-oxygen antialiased text-white text-shadow-body text-opacity-80 h-full w-full overflow-hidden p-2">
         {children}
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  return <Outlet />;
+  return <Outlet />
 }
 
 export function HydrateFallback() {
-  return <p>Loading...</p>;
+  return <p>Loading...</p>
 }
