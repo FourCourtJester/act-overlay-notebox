@@ -20,14 +20,10 @@ function Divider() {
 }
 
 const LowPriority = 1
-const defaultButtonClasses = [
-  'flex',
-  'bg-transparent',
-  'rounded',
-  'p-1',
-  'opacity-60',
-  'disabled:opacity-20',
-]
+const defaultButtonClasses = ['flex', 'bg-transparent', 'rounded', 'p-1']
+const inactiveButtonClasses = ['opacity-60', 'disabled:opacity-20']
+const activeButtonCLasses = ['active', 'opacity-100']
+
 const defaultIconClasses = ['flex', 'h-4', 'w-4']
 
 export default function ToolbarPlugin() {
@@ -89,120 +85,121 @@ export default function ToolbarPlugin() {
 
   return (
     <div
-      className="toolbar flex flex-wrap items-center text-1xl p-1 gap-3"
+      className="toolbar flex flex-wrap items-center text-1xl p-1 gap-1"
       ref={$ref}
     >
       {/* Undo/Redo  */}
-      <div className="flex items-center gap-0.5">
-        {/* Undo */}
-        <button
-          disabled={!canUndo}
-          onClick={() => {
-            editor.dispatchCommand(UNDO_COMMAND, undefined)
-          }}
-          className={cN(...defaultButtonClasses)}
-          aria-label="Undo"
-        >
-          <i
-            className={cN(
-              'bi bi-arrow-counterclockwise',
-              ...defaultIconClasses,
-            )}
-          />
-        </button>
-        {/* Redo */}
-        <button
-          disabled={!canRedo}
-          onClick={() => {
-            editor.dispatchCommand(REDO_COMMAND, undefined)
-          }}
-          className={cN(...defaultButtonClasses)}
-          aria-label="Redo"
-        >
-          <i className={cN('bi bi-arrow-clockwise', ...defaultIconClasses)} />
-        </button>
-      </div>
+      {/* <div className="flex items-center gap-0.5"> */}
+      {/* Undo */}
+      <button
+        disabled={!canUndo}
+        onClick={() => {
+          editor.dispatchCommand(UNDO_COMMAND, undefined)
+        }}
+        className={cN(...defaultButtonClasses)}
+        aria-label="Undo"
+      >
+        <i
+          className={cN(
+            'bi bi-arrow-counterclockwise',
+            ...defaultIconClasses,
+            inactiveButtonClasses,
+          )}
+        />
+      </button>
+      {/* Redo */}
+      <button
+        disabled={!canRedo}
+        onClick={() => {
+          editor.dispatchCommand(REDO_COMMAND, undefined)
+        }}
+        className={cN(...defaultButtonClasses, inactiveButtonClasses)}
+        aria-label="Redo"
+      >
+        <i className={cN('bi bi-arrow-clockwise', ...defaultIconClasses)} />
+      </button>
+      {/* </div> */}
       {/* Bold/Italic/Underline */}
-      <div className="flex items-center gap-0.5">
-        {/* Bold */}
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
-          }}
-          className={cN(
-            ...defaultButtonClasses,
-            isBold ? 'active opacity-100' : false,
-          )}
-          aria-label="Format Bold"
-        >
-          <i className={cN('bi bi-type-bold', ...defaultIconClasses)} />
-        </button>
-        {/* Italic */}
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
-          }}
-          className={cN(
-            ...defaultButtonClasses,
-            isItalic ? 'active opacity-100' : false,
-          )}
-          aria-label="Format Italics"
-        >
-          <i className={cN('bi bi-type-italic', ...defaultIconClasses)} />
-        </button>
-        {/* Underline */}
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
-          }}
-          className={cN(
-            ...defaultButtonClasses,
-            isUnderline ? 'active opacity-100' : false,
-          )}
-          aria-label="Format Underline"
-        >
-          <i className={cN('bi bi-type-underline', ...defaultIconClasses)} />
-        </button>
-      </div>
+      {/* <div className="flex items-center gap-0.5"> */}
+      {/* Bold */}
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
+        }}
+        className={cN(
+          ...defaultButtonClasses,
+          isBold ? activeButtonCLasses : inactiveButtonClasses,
+        )}
+        aria-label="Format Bold"
+      >
+        <i className={cN('bi bi-type-bold', ...defaultIconClasses)} />
+      </button>
+      {/* Italic */}
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
+        }}
+        className={cN(
+          ...defaultButtonClasses,
+          isItalic ? activeButtonCLasses : inactiveButtonClasses,
+        )}
+        aria-label="Format Italics"
+      >
+        <i className={cN('bi bi-type-italic', ...defaultIconClasses)} />
+      </button>
+      {/* Underline */}
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
+        }}
+        className={cN(
+          ...defaultButtonClasses,
+          isUnderline ? activeButtonCLasses : inactiveButtonClasses,
+        )}
+        aria-label="Format Underline"
+      >
+        <i className={cN('bi bi-type-underline', ...defaultIconClasses)} />
+      </button>
+      {/* </div> */}
       {/* Left/Center/Right/Justified */}
-      <div className="flex items-center gap-0.5">
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')
-          }}
-          className={cN(...defaultButtonClasses)}
-          aria-label="Left Align"
-        >
-          <i className={cN('bi bi-text-left', ...defaultIconClasses)} />
-        </button>
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')
-          }}
-          className={cN(...defaultButtonClasses)}
-          aria-label="Center Align"
-        >
-          <i className={cN('bi bi-text-center', ...defaultIconClasses)} />
-        </button>
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')
-          }}
-          className={cN(...defaultButtonClasses)}
-          aria-label="Right Align"
-        >
-          <i className={cN('bi bi-text-right', ...defaultIconClasses)} />
-        </button>
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
-          }}
-          className={cN(...defaultButtonClasses)}
-          aria-label="Justify Align"
-        >
-          <i className={cN('bi bi-justify', ...defaultIconClasses)} />
-        </button>
-      </div>
+      {/* <div className="flex items-center gap-0.5"> */}
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')
+        }}
+        className={cN(...defaultButtonClasses, inactiveButtonClasses)}
+        aria-label="Left Align"
+      >
+        <i className={cN('bi bi-text-left', ...defaultIconClasses)} />
+      </button>
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')
+        }}
+        className={cN(...defaultButtonClasses, inactiveButtonClasses)}
+        aria-label="Center Align"
+      >
+        <i className={cN('bi bi-text-center', ...defaultIconClasses)} />
+      </button>
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')
+        }}
+        className={cN(...defaultButtonClasses, inactiveButtonClasses)}
+        aria-label="Right Align"
+      >
+        <i className={cN('bi bi-text-right', ...defaultIconClasses)} />
+      </button>
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
+        }}
+        className={cN(...defaultButtonClasses, inactiveButtonClasses)}
+        aria-label="Justify Align"
+      >
+        <i className={cN('bi bi-justify', ...defaultIconClasses)} />
+      </button>
+      {/* </div> */}
     </div>
   )
 }

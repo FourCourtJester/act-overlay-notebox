@@ -1,5 +1,6 @@
 {
   "text": {
-    "bold": "font-bold"
+    "bold": "font-bold",
+    "underline": "underline"
   }
 }

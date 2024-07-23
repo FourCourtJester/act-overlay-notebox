@@ -43,6 +43,8 @@ export default class Singleton extends EventTarget {
     this.#worker.port.postMessage({ action: name, data })
   }
 
+  // Static Functions
+
   static getInstance() {
     if (Singleton.#instance) return Singleton.#instance
 
